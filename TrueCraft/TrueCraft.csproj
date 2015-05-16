@@ -35,6 +35,7 @@
     <Compile Include="AccessConfiguration.cs" />
     <Compile Include="Commands\Command.cs" />
     <Compile Include="Commands\CommandManager.cs" />
+    <Compile Include="Commands\OpCommand.cs" />
     <Compile Include="Commands\GiveCommand.cs" />
     <Compile Include="Commands\GiveMeCommand.cs" />
     <Compile Include="Commands\HelpCommand.cs" />

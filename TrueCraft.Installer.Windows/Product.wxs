@@ -9,6 +9,9 @@
     <Feature Id="ClientFeature" Title="TrueCraft Client" Level="1">
       <ComponentGroupRef Id="TruecraftClientCGroup" />
     </Feature>
+    
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
 	</Product>
 
 	<Fragment>

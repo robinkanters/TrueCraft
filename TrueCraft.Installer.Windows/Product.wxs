@@ -1,30 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="TrueCraft" Language="1033" Version="0.0.1.0" Manufacturer="SirCmpwn" UpgradeCode="ddbaa36c-3a16-4452-8bdb-885c5bb18f9c">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+  <Product Id="*" Name="TrueCraft" Language="1033" Version="0.0.1.0" Manufacturer="SirCmpwn" UpgradeCode="ddbaa36c-3a16-4452-8bdb-885c5bb18f9c">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"  />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate />
 
-    <Feature Id="Truecraft" Title="TrueCraft">
-      <Feature InstallDefault="local" Id="ClientFeature" Title="TrueCraft Client" Level="3" Description="The TrueCraft client." ConfigurableDirectory="CLIENT_FOLDER">
-        <Feature InstallDefault="followParent" Id="LauncherFeature" Title="TrueCraft Launcher" Level="3" Display="expand" Description="The TrueCraft launcher for TrueCraft." ConfigurableDirectory="LAUNCHER_FOLDER">
-          <ComponentGroupRef Id="TrueCraftClientCGroup" />
-        </Feature>
-        <ComponentGroupRef Id="TrueCraftClientCGroup" />
+    <Property Id="INSTALLLEVEL" Value="3" />
+
+    <Feature Id="Truecraft" Title="TrueCraft" Display="expand">
+      <Feature InstallDefault="followParent" Id="LauncherFeature" Title="TrueCraft Launcher &amp; Client" Level="3" Display="expand" Description="The TrueCraft Launcher and Client." ConfigurableDirectory="LAUNCHER_FOLDER">
+        <ComponentGroupRef Id="TrueCraftLauncher" />
       </Feature>
       <Feature Absent="allow" Id="ServerFeature" Title="TrueCraft Server" Level="1000" Display="expand" Description="The TrueCraft server." ConfigurableDirectory="SERVER_FOLDER">
         <ComponentGroupRef Id="TrueCraftServer" />
       </Feature>
+      <Feature InstallDefault="local" Id="ClientFeature" Title="TrueCraft Standalone Client" Level="1000" Description="The TrueCraft client." ConfigurableDirectory="CLIENT_FOLDER">
+        <ComponentGroupRef Id="TrueCraftClient" />
+      </Feature>
     </Feature>
-    
+
     <UIRef Id="WixUI_Mondo" />
     <UIRef Id="WixUI_ErrorProgressText" />
-	</Product>
-  
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
         <Directory Name="TrueCraft" Id="TrueCraft">
           <Directory Id="CLIENT_FOLDER" Name="Client">
             <Directory Id="CLIENT_CONTENT" Name="Content">
@@ -34,28 +36,20 @@
           <Directory Id="SERVER_FOLDER" Name="Server">
           </Directory>
           <Directory Id="LAUNCHER_FOLDER" Name="Laucher">
+            <Directory Id="LAUNCHER_CONTENT" Name="Content">
+
+            </Directory>
           </Directory>
         </Directory>
-			</Directory>
-		</Directory>
-	</Fragment>
+      </Directory>
+    </Directory>
+  </Fragment>
 
-	<Fragment>
-    <ComponentGroup Id="TrueCraftClientContent" Directory="CLIENT_CONTENT">
-      <Component Id="dejavu.fnt" Guid="*">
-        <File Id="dejavu.fnt" Source="..\TrueCraft.Client\bin\Release\Content\dejavu.fnt" KeyPath="yes" />
-      </Component>
-      <Component Id="dejavu_0.png" Guid="*">
-        <File Id="dejavu_0.png" Source="..\TrueCraft.Client\bin\Release\Content\dejavu_0.png" KeyPath="yes" />
-      </Component>
-      <Component Id="items.png" Guid="*">
-        <File Id="items.png" Source="..\TrueCraft.Client\bin\Release\Content\items.png" KeyPath="yes" />
-      </Component>
-      <Component Id="terrain.png" Guid="*">
-        <File Id="terrain.png" Source="..\TrueCraft.Client\bin\Release\Content\terrain.png" KeyPath="yes" />
-      </Component>
-    </ComponentGroup>
-		<ComponentGroup Id="TrueCraftClientCGroup" Directory="CLIENT_FOLDER">
+  <!--
+    TODO: share all common dlls amongst programs instead of giving all programs there own versions of all shared dlls
+  -->
+  <Fragment>
+    <ComponentGroup Id="TrueCraftClient" Directory="CLIENT_FOLDER">
       <ComponentGroupRef Id="TrueCraftClientContent"/>
       <Component Id="fNbt.dll" Guid="*">
         <File Id="fNbt.dll" Source="..\TrueCraft.Client\bin\Release\fNbt.dll" KeyPath="yes" />
@@ -96,7 +90,22 @@
       <Component Id="YamlDotNet.xml" Guid="*">
         <File Id="YamlDotNet.xml" Source="..\TrueCraft.Client\bin\Release\YamlDotNet.xml"/>
       </Component>
-		</ComponentGroup>
+    </ComponentGroup>
+    <ComponentGroup Id="TrueCraftClientContent" Directory="CLIENT_CONTENT">
+      <Component Id="dejavu.fnt" Guid="*">
+        <File Id="dejavu.fnt" Source="..\TrueCraft.Client\bin\Release\Content\dejavu.fnt" KeyPath="yes" />
+      </Component>
+      <Component Id="dejavu_0.png" Guid="*">
+        <File Id="dejavu_0.png" Source="..\TrueCraft.Client\bin\Release\Content\dejavu_0.png" KeyPath="yes" />
+      </Component>
+      <Component Id="items.png" Guid="*">
+        <File Id="items.png" Source="..\TrueCraft.Client\bin\Release\Content\items.png" KeyPath="yes" />
+      </Component>
+      <Component Id="terrain.png" Guid="*">
+        <File Id="terrain.png" Source="..\TrueCraft.Client\bin\Release\Content\terrain.png" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    
     <ComponentGroup Id="TrueCraftServer" Directory="SERVER_FOLDER">
       <Component Id="sfNbt.dll" Guid="*">
         <File Id="sfNbt.dll" Source="..\TrueCraft\bin\Release\fNbt.dll" KeyPath="yes" />
@@ -123,5 +132,80 @@
         <File Id="sYamlDotNet.dll" Source="..\TrueCraft\bin\Release\YamlDotNet.dll"/>
       </Component>
     </ComponentGroup>
-	</Fragment>
+    
+    <ComponentGroup Id="TrueCraftLauncher" Directory="LAUNCHER_FOLDER">
+      <ComponentGroupRef Id="TrueCraftLauncherContent"/>
+      <Component Id="lfNbt.dll" Guid="*">
+        <File Id="lfNbt.dll" Source="..\TrueCraft.Launcher\bin\Release\fNbt.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lfNbt.xml" Guid="*">
+        <File Id="lfNbt.xml" Source="..\TrueCraft.Launcher\bin\Release\fNbt.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="lIonic.Zip.Reduced.dll" Guid="*">
+        <File Id="lIonic.Zip.Reduced.dll" Source="..\TrueCraft.Launcher\bin\Release\Ionic.Zip.Reduced.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lMonoGame.Framework.dll" Guid="*">
+        <File Id="lMonoGame.Framework.dll" Source="..\TrueCraft.Launcher\bin\Release\MonoGame.Framework.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lMonoGame.Framework.xml" Guid="*">
+        <File Id="lMonoGame.Framework.xml" Source="..\TrueCraft.Launcher\bin\Release\MonoGame.Framework.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="lOpenTK.dll" Guid="*">
+        <File Id="lOpenTK.dll" Source="..\TrueCraft.Launcher\bin\Release\OpenTK.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lOpenTK.dll.config" Guid="*">
+        <File Id="lOpenTK.dll.config" Source="..\TrueCraft.Launcher\bin\Release\OpenTK.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="lTao.Sdl.dll.config" Guid="*">
+        <File Id="lTao.Sdl.dll.config" Source="..\TrueCraft.Launcher\bin\Release\Tao.Sdl.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="lTrueCraft.API.dll" Guid="*">
+        <File Id="lTrueCraft.API.dll" Source="..\TrueCraft.Launcher\bin\Release\TrueCraft.API.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lTrueCraft.Client.exe" Guid="*">
+        <File Id="lTrueCraft.Client.exe" Source="..\TrueCraft.Launcher\bin\Release\TrueCraft.Client.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="lTrueCraft.Core.dll" Guid="*">
+        <File Id="lTrueCraft.Core.dll" Source="..\TrueCraft.Launcher\bin\Release\TrueCraft.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lTrueCraft.exe" Guid="*">
+        <File Id="lTrueCraft.exe" Source="..\TrueCraft.Launcher\bin\Release\TrueCraft.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="lTrueCraft.Launcher.exe" Guid="*">
+        <File Id="lTrueCraft.Launcher.exe" Source="..\TrueCraft.Launcher\bin\Release\TrueCraft.Launcher.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="lXwt.dll" Guid="*">
+        <File Id="lXwt.dll" Source="..\TrueCraft.Launcher\bin\Release\Xwt.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lXwt.Gtk.dll" Guid="*">
+        <File Id="lXwt.Gtk.dll" Source="..\TrueCraft.Launcher\bin\Release\Xwt.Gtk.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lXwt.Gtk.dll.config" Guid="*">
+        <File Id="lXwt.Gtk.dll.config" Source="..\TrueCraft.Launcher\bin\Release\Xwt.Gtk.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="lXwt.WPF.dll" Guid="*">
+        <File Id="lXwt.WPF.dll" Source="..\TrueCraft.Launcher\bin\Release\Xwt.WPF.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lYamlDotNet.dll" Guid="*">
+        <File Id="lYamlDotNet.dll" Source="..\TrueCraft.Launcher\bin\Release\YamlDotNet.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="lYamlDotNet.xml" Guid="*">
+        <File Id="lYamlDotNet.xml" Source="..\TrueCraft.Launcher\bin\Release\YamlDotNet.xml" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+    <ComponentGroup Id="TrueCraftLauncherContent" Directory="LAUNCHER_CONTENT">
+      <Component Id="ldejavu.fnt" Guid="*">
+        <File Id="ldejavu.fnt" Source="..\TrueCraft.Launcher\bin\Release\Content\dejavu.fnt" KeyPath="yes" />
+      </Component>
+      <Component Id="ldejavu_0.png" Guid="*">
+        <File Id="ldejavu_0.png" Source="..\TrueCraft.Launcher\bin\Release\Content\dejavu_0.png" KeyPath="yes" />
+      </Component>
+      <Component Id="litems.png" Guid="*">
+        <File Id="litems.png" Source="..\TrueCraft.Launcher\bin\Release\Content\items.png" KeyPath="yes" />
+      </Component>
+      <Component Id="lterrain.png" Guid="*">
+        <File Id="lterrain.png" Source="..\TrueCraft.Launcher\bin\Release\Content\terrain.png" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+  </Fragment>
 </Wix>

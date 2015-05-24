@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Product Id="*" Name="TrueCraft" Language="1033" Version="0.0.1.0" Manufacturer="SirCmpwn" UpgradeCode="ddbaa36c-3a16-4452-8bdb-885c5bb18f9c">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+
+		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+		<MediaTemplate />
+
+    <Feature Id="ClientFeature" Title="TrueCraft Client" Level="1">
+      <ComponentGroupRef Id="TruecraftClientCGroup" />
+    </Feature>
+	</Product>
+
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+        <Directory Name="TrueCraft" Id="TrueCraft">
+          <Directory Id="CLIENT_FOLDER" Name="Client">
+            <Directory Id="CLIENT_CONTENT" Name="Content">
+              
+            </Directory>
+          </Directory>
+        </Directory>
+			</Directory>
+		</Directory>
+	</Fragment>
+
+	<Fragment>
+    <ComponentGroup Id="TrueCraftClientContent" Directory="CLIENT_CONTENT">
+      <!--
+        dejavu.fnt
+        dejavu_0.png
+        items.png
+        terrain.png
+      -->
+      <Component Id="dejavu.fnt" Guid="*">
+        <File Id="dejavu.fnt" Source="..\TrueCraft.Client\bin\Release\Content\dejavu.fnt" KeyPath="yes" />
+      </Component>
+      <Component Id="dejavu_0.png" Guid="*">
+        <File Id="dejavu_0.png" Source="..\TrueCraft.Client\bin\Release\Content\dejavu_0.png" KeyPath="yes" />
+      </Component>
+      <Component Id="items.png" Guid="*">
+        <File Id="items.png" Source="..\TrueCraft.Client\bin\Release\Content\items.png" KeyPath="yes" />
+      </Component>
+      <Component Id="terrain.png" Guid="*">
+        <File Id="terrain.png" Source="..\TrueCraft.Client\bin\Release\Content\terrain.png" KeyPath="yes" />
+      </Component>
+    </ComponentGroup>
+		<ComponentGroup Id="TruecraftClientCGroup" Directory="CLIENT_FOLDER">
+      <ComponentGroupRef Id="TrueCraftClientContent"/>
+      <Component Id="fNbt.dll" Guid="*">
+        <File Id="fNbt.dll" Source="..\TrueCraft.Client\bin\Release\fNbt.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="fNbt.xml" Guid="*">
+        <File Id="fNbt.xml" Source="..\TrueCraft.Client\bin\Release\fNbt.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="MonoGame.Framework.dll" Guid="*">
+        <File Id="MonoGame.Framework.dll" Source="..\TrueCraft.Client\bin\Release\MonoGame.Framework.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="MonoGame.Framework.xml" Guid="*">
+        <File Id="MonoGame.Framework.xml" Source="..\TrueCraft.Client\bin\Release\MonoGame.Framework.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="OpenTK.dll" Guid="*">
+        <File Id="OpenTK.dll" Source="..\TrueCraft.Client\bin\Release\OpenTK.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="OpenTK.dll.config" Guid="*">
+        <File Id="OpenTK.dll.config" Source="..\TrueCraft.Client\bin\Release\OpenTK.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="Tao.Sdl.dll" Guid="*">
+        <File Id="Tao.Sdl.dll" Source="..\TrueCraft.Client\bin\Release\Tao.Sdl.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="Tao.Sdl.dll.config" Guid="*">
+        <File Id="Tao.Sdl.dll.config" Source="..\TrueCraft.Client\bin\Release\Tao.Sdl.dll.config" KeyPath="yes" />
+      </Component>
+      <Component Id="TrueCraft.API.dll" Guid="*">
+        <File Id="TrueCraft.API.dll" Source="..\TrueCraft.Client\bin\Release\TrueCraft.API.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="TrueCraft.Client.exe" Guid="*">
+        <File Id="TrueCraft.Client.exe" Source="..\TrueCraft.Client\bin\Release\TrueCraft.Client.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="TrueCraft.Core.dll" Guid="*">
+        <File Id="TrueCraft.Core.dll" Source="..\TrueCraft.Client\bin\Release\TrueCraft.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="YamlDotNet.dll" Guid="*">
+        <File Id="YamlDotNet.dll" Source="..\TrueCraft.Client\bin\Release\YamlDotNet.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="YamlDotNet.xml" Guid="*">
+        <File Id="YamlDotNet.xml" Source="..\TrueCraft.Client\bin\Release\YamlDotNet.xml"/>
+      </Component>
+		</ComponentGroup>
+	</Fragment>
+</Wix>

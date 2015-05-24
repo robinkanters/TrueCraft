@@ -29,6 +29,48 @@
       <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TrueCraft.API\TrueCraft.API.csproj">
+      <Name>TrueCraft.API</Name>
+      <Project>{fee55b54-91b0-4325-a2c3-d576c0b7a81f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\TrueCraft.Client\TrueCraft.Client.csproj">
+      <Name>TrueCraft.Client</Name>
+      <Project>{a6516869-a2fb-4e31-85c8-2285490cb32c}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\TrueCraft.Core\TrueCraft.Core.csproj">
+      <Name>TrueCraft.Core</Name>
+      <Project>{fa4be9a3-dbf0-4380-ba2b-ffaa71c4706d}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\TrueCraft.Launcher\TrueCraft.Launcher.csproj">
+      <Name>TrueCraft.Launcher</Name>
+      <Project>{6604f17a-552e-405d-b327-37c8b1648c86}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\TrueCraft\TrueCraft.csproj">
+      <Name>TrueCraft</Name>
+      <Project>{c1c47ef5-2d8a-4231-aaa8-f651f52f480e}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(WixTargetsPath)" />
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.

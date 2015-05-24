@@ -6,22 +6,34 @@
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
 		<MediaTemplate />
 
-    <Feature Id="ClientFeature" Title="TrueCraft Client" Level="1">
-      <ComponentGroupRef Id="TruecraftClientCGroup" />
+    <Feature Id="Truecraft" Title="TrueCraft">
+      <Feature InstallDefault="local" Id="ClientFeature" Title="TrueCraft Client" Level="3" Description="The TrueCraft client." ConfigurableDirectory="CLIENT_FOLDER">
+        <Feature InstallDefault="followParent" Id="LauncherFeature" Title="TrueCraft Launcher" Level="3" Display="expand" Description="The TrueCraft launcher for TrueCraft." ConfigurableDirectory="LAUNCHER_FOLDER">
+          <ComponentGroupRef Id="TrueCraftClientCGroup" />
+        </Feature>
+        <ComponentGroupRef Id="TrueCraftClientCGroup" />
+      </Feature>
+      <Feature Absent="allow" Id="ServerFeature" Title="TrueCraft Server" Level="1000" Display="expand" Description="The TrueCraft server." ConfigurableDirectory="SERVER_FOLDER">
+        <ComponentGroupRef Id="TrueCraftServer" />
+      </Feature>
     </Feature>
     
     <UIRef Id="WixUI_Mondo" />
     <UIRef Id="WixUI_ErrorProgressText" />
 	</Product>
-
+  
 	<Fragment>
 		<Directory Id="TARGETDIR" Name="SourceDir">
 			<Directory Id="ProgramFilesFolder">
         <Directory Name="TrueCraft" Id="TrueCraft">
           <Directory Id="CLIENT_FOLDER" Name="Client">
             <Directory Id="CLIENT_CONTENT" Name="Content">
-              
+
             </Directory>
+          </Directory>
+          <Directory Id="SERVER_FOLDER" Name="Server">
+          </Directory>
+          <Directory Id="LAUNCHER_FOLDER" Name="Laucher">
           </Directory>
         </Directory>
 			</Directory>
@@ -43,7 +55,7 @@
         <File Id="terrain.png" Source="..\TrueCraft.Client\bin\Release\Content\terrain.png" KeyPath="yes" />
       </Component>
     </ComponentGroup>
-		<ComponentGroup Id="TruecraftClientCGroup" Directory="CLIENT_FOLDER">
+		<ComponentGroup Id="TrueCraftClientCGroup" Directory="CLIENT_FOLDER">
       <ComponentGroupRef Id="TrueCraftClientContent"/>
       <Component Id="fNbt.dll" Guid="*">
         <File Id="fNbt.dll" Source="..\TrueCraft.Client\bin\Release\fNbt.dll" KeyPath="yes" />
@@ -85,5 +97,31 @@
         <File Id="YamlDotNet.xml" Source="..\TrueCraft.Client\bin\Release\YamlDotNet.xml"/>
       </Component>
 		</ComponentGroup>
+    <ComponentGroup Id="TrueCraftServer" Directory="SERVER_FOLDER">
+      <Component Id="sfNbt.dll" Guid="*">
+        <File Id="sfNbt.dll" Source="..\TrueCraft\bin\Release\fNbt.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="sfNbt.xml" Guid="*">
+        <File Id="sfNbt.xml" Source="..\TrueCraft\bin\Release\fNbt.xml" KeyPath="yes" />
+      </Component>
+      <Component Id="sIonic.Zip.Reduced.dll" Guid="*">
+        <File Id="sIonic.Zip.Reduced.dll" Source="..\TrueCraft\bin\Release\Ionic.Zip.Reduced.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="sTrueCraft.API.dll" Guid="*">
+        <File Id="sTrueCraft.API.dll" Source="..\TrueCraft\bin\Release\TrueCraft.API.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="sTrueCraft.Core.dll" Guid="*">
+        <File Id="sTrueCraft.Core.dll" Source="..\TrueCraft\bin\Release\TrueCraft.Core.dll" KeyPath="yes" />
+      </Component>
+      <Component Id="TrueCraft.exe" Guid="*">
+        <File Id="TrueCraft.exe" Source="..\TrueCraft\bin\Release\TrueCraft.exe" KeyPath="yes" />
+      </Component>
+      <Component Id="sYamlDotNet.xml" Guid="*">
+        <File Id="sYamlDotNet.xml" Source="..\TrueCraft\bin\Release\YamlDotNet.xml"/>
+      </Component>
+      <Component Id="sYamlDotNet.dll" Guid="*">
+        <File Id="sYamlDotNet.dll" Source="..\TrueCraft\bin\Release\YamlDotNet.dll"/>
+      </Component>
+    </ComponentGroup>
 	</Fragment>
 </Wix>

@@ -27,12 +27,6 @@
 
 	<Fragment>
     <ComponentGroup Id="TrueCraftClientContent" Directory="CLIENT_CONTENT">
-      <!--
-        dejavu.fnt
-        dejavu_0.png
-        items.png
-        terrain.png
-      -->
       <Component Id="dejavu.fnt" Guid="*">
         <File Id="dejavu.fnt" Source="..\TrueCraft.Client\bin\Release\Content\dejavu.fnt" KeyPath="yes" />
       </Component>
